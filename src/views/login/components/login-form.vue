@@ -1,7 +1,7 @@
 <template>
   <div class="login-form-wrapper">
     <div class="login-form-title">{{ $t('login.form.title') }}</div>
-    <div class="login-form-sub-title">{{ $t('login.form.title') }}</div>
+    <div class="login-form-sub-title">{{ $t('login.form.subTitle') }}</div>
     <div class="login-form-error-msg">{{ errorMessage }}</div>
     <a-form
       ref="loginForm"
@@ -13,11 +13,11 @@
       <a-form-item
         :rules="[{ required: true, message: $t('login.form.userName.errMsg') }]"
         :validate-trigger="['change', 'blur']"
-        field="username"
+        field="userAccount"
         hide-label
       >
         <a-input
-          v-model="userInfo.username"
+          v-model="userInfo.userAccount"
           :placeholder="$t('login.form.userName.placeholder')"
         >
           <template #prefix>
@@ -28,11 +28,11 @@
       <a-form-item
         :rules="[{ required: true, message: $t('login.form.password.errMsg') }]"
         :validate-trigger="['change', 'blur']"
-        field="password"
+        field="userPassword"
         hide-label
       >
         <a-input-password
-          v-model="userInfo.password"
+          v-model="userInfo.userPassword"
           :placeholder="$t('login.form.password.placeholder')"
           allow-clear
         >
@@ -82,12 +82,12 @@
 
   const loginConfig = useStorage('login-config', {
     rememberPassword: true,
-    username: 'admin', // 演示默认值
-    password: 'admin', // demo default value
+    userAccount: 'admin', // 演示默认值
+    userPassword: 'admin', // demo default value
   });
   const userInfo = reactive({
-    username: loginConfig.value.username,
-    password: loginConfig.value.password,
+    userAccount: loginConfig.value.userAccount,
+    userPassword: loginConfig.value.userPassword,
   });
 
   const handleSubmit = async ({
@@ -111,11 +111,11 @@
         });
         Message.success(t('login.form.login.success'));
         const { rememberPassword } = loginConfig.value;
-        const { username, password } = values;
+        const { userAccount, userPassword } = values;
         // 实际生产环境需要进行加密存储。
         // The actual production environment requires encrypted storage.
-        loginConfig.value.username = rememberPassword ? username : '';
-        loginConfig.value.password = rememberPassword ? password : '';
+        loginConfig.value.userAccount = rememberPassword ? userAccount : '';
+        loginConfig.value.userPassword = rememberPassword ? userPassword : '';
       } catch (err) {
         errorMessage.value = (err as Error).message;
       } finally {
@@ -139,12 +139,14 @@
       font-weight: 500;
       font-size: 24px;
       line-height: 32px;
+      text-align: center;
     }
 
     &-sub-title {
       color: var(--color-text-3);
       font-size: 16px;
       line-height: 24px;
+      text-align: center;
     }
 
     &-error-msg {
