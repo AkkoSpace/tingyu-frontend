@@ -1,11 +1,11 @@
 <template>
   <div class="login-form-wrapper">
     <a-card class="login-form-out-card">
-      <a-row align="center">
-        <a-col :span="14">
+      <a-row v-if="loginType === 'login'" align="center">
+        <a-col :offset="1" :span="12">
           <img src="src/assets/images/login/login-bg.svg" style="width: 100%" />
         </a-col>
-        <a-col :span="10">
+        <a-col :offset="1" :span="9">
           <a-card :bordered="false">
             <div class="login-form-title">{{ $t('login.form.title') }}</div>
             <div class="login-form-sub-title"
@@ -23,7 +23,7 @@
                 :rules="[
                   {
                     required: true,
-                    message: $t('login.form.userName.errMsg'),
+                    message: $t('login.form.userAccount.errMsg'),
                   },
                 ]"
                 :validate-trigger="['change', 'blur']"
@@ -32,7 +32,7 @@
               >
                 <a-input
                   v-model="userInfo.userAccount"
-                  :placeholder="$t('login.form.userName.placeholder')"
+                  :placeholder="$t('login.form.userAccount.placeholder')"
                 >
                   <template #prefix>
                     <icon-user />
@@ -43,7 +43,7 @@
                 :rules="[
                   {
                     required: true,
-                    message: $t('login.form.password.errMsg'),
+                    message: $t('login.form.userPassword.errMsg'),
                   },
                 ]"
                 :validate-trigger="['change', 'blur']"
@@ -52,7 +52,7 @@
               >
                 <a-input-password
                   v-model="userInfo.userPassword"
-                  :placeholder="$t('login.form.password.placeholder')"
+                  :placeholder="$t('login.form.userPassword.placeholder')"
                   allow-clear
                 >
                   <template #prefix>
@@ -61,7 +61,7 @@
                 </a-input-password>
               </a-form-item>
               <a-space :size="16" direction="vertical">
-                <div class="login-form-password-actions">
+                <div class="login-form-login-actions">
                   <a-checkbox
                     :model-value="loginConfig.rememberPassword"
                     checked="rememberPassword"
@@ -69,15 +69,125 @@
                   >
                     {{ $t('login.form.rememberPassword') }}
                   </a-checkbox>
-                  <a-link>{{ $t('login.form.forgetPassword') }}</a-link>
+                  <a-link @click="clickRegister"
+                    >{{ $t('login.form.login.register') }}
+                  </a-link>
                 </div>
                 <a-button
                   :loading="loading"
                   html-type="submit"
                   long
+                  shape="round"
                   type="primary"
                 >
                   {{ $t('login.form.login') }}
+                </a-button>
+              </a-space>
+            </a-form>
+          </a-card>
+        </a-col>
+      </a-row>
+      <a-row v-if="loginType === 'register'" align="center">
+        <a-col :offset="1" :span="12">
+          <img
+            src="src/assets/images/login/register-bg.svg"
+            style="width: 100%"
+          />
+        </a-col>
+        <a-col :offset="1" :span="9">
+          <a-card :bordered="false">
+            <div class="login-form-title">{{ $t('login.form.title') }}</div>
+            <div class="login-form-sub-title"
+              >{{ $t('login.form.subTitle') }}
+            </div>
+            <div class="login-form-error-msg">{{ errorMessage }}</div>
+            <a-form
+              ref="loginForm"
+              :model="userInfo"
+              class="login-form"
+              layout="vertical"
+              @submit="handleRegister"
+            >
+              <a-form-item
+                :rules="[
+                  {
+                    required: true,
+                    message: $t('login.form.userAccount.errMsg'),
+                  },
+                ]"
+                :validate-trigger="['change', 'blur']"
+                field="userAccount"
+                hide-label
+              >
+                <a-input
+                  v-model="userInfo.userAccount"
+                  :placeholder="$t('login.form.userAccount.placeholder')"
+                >
+                  <template #prefix>
+                    <icon-user />
+                  </template>
+                </a-input>
+              </a-form-item>
+              <a-form-item
+                :rules="[
+                  {
+                    required: true,
+                    message: $t('login.form.userPassword.errMsg'),
+                  },
+                ]"
+                :validate-trigger="['change', 'blur']"
+                field="userPassword"
+                hide-label
+              >
+                <a-input-password
+                  v-model="userInfo.userPassword"
+                  :placeholder="
+                    $t('login.form.register.userPassword.placeholder')
+                  "
+                  allow-clear
+                >
+                  <template #prefix>
+                    <icon-lock />
+                  </template>
+                </a-input-password>
+              </a-form-item>
+              <a-form-item
+                :rules="[
+                  {
+                    required: true,
+                    message: $t('login.form.userPassword.errMsg'),
+                  },
+                ]"
+                :validate-trigger="['change', 'blur']"
+                field="userPassword"
+                hide-label
+              >
+                <a-input-password
+                  v-model="userInfo.checkPassword"
+                  :placeholder="
+                    $t('login.form.register.checkPassword.placeholder')
+                  "
+                  allow-clear
+                >
+                  <template #prefix>
+                    <icon-lock />
+                  </template>
+                </a-input-password>
+              </a-form-item>
+              <a-space :size="16" direction="vertical">
+                <div class="login-form-register-actions">
+                  <a-link @click="clickLogin"
+                    >{{ $t('login.form.login.login') }}
+                  </a-link>
+                </div>
+                <a-button
+                  :loading="loading"
+                  html-type="submit"
+                  long
+                  shape="round"
+                  type="primary"
+                >
+                  {{ $t('login.form.register') }}
                 </a-button>
               </a-space>
             </a-form>
@@ -97,7 +207,7 @@
   import { useStorage } from '@vueuse/core';
   import { useUserStore } from '@/store';
   import useLoading from '@/hooks/loading';
-  import type { LoginData } from '@/api/user';
+  import type { LoginData, RegisterData } from '@/api/user';
 
   const router = useRouter();
   const { t } = useI18n();
@@ -107,13 +217,31 @@
 
   const loginConfig = useStorage('login-config', {
     rememberPassword: true,
-    userAccount: 'admin', // 演示默认值
-    userPassword: 'admin', // demo default value
+    userAccount: '',
+    userPassword: '',
+    checkPassword: '',
   });
   const userInfo = reactive({
     userAccount: loginConfig.value.userAccount,
     userPassword: loginConfig.value.userPassword,
+    checkPassword: loginConfig.value.checkPassword,
   });
+
+  const loginType = ref('login');
+  const clickRegister = () => {
+    loginType.value = 'register';
+    // 重置表单
+    userInfo.userAccount = '';
+    userInfo.userPassword = '';
+    errorMessage.value = '';
+  };
+  const clickLogin = () => {
+    loginType.value = 'login';
+    // 重置表单
+    userInfo.userAccount = '';
+    userInfo.userPassword = '';
+    errorMessage.value = '';
+  };
 
   const handleLogin = async ({
     errors,
@@ -148,8 +276,28 @@
       }
     }
   };
-  const handleRegister = () => {
-    console.log('register');
+
+  const handleRegister = async ({
+    errors,
+    values,
+  }: {
+    errors: Record<string, ValidatedError> | undefined;
+    values: Record<string, any>;
+  }) => {
+    if (loading.value) return;
+    if (!errors) {
+      setLoading(true);
+      try {
+        await userStore.register(values as RegisterData);
+        Message.success(t('login.form.register.success'));
+        loginType.value = 'login';
+        errorMessage.value = '';
+      } catch (err) {
+        errorMessage.value = (err as Error).message;
+      } finally {
+        setLoading(false);
+      }
+    }
   };
   const setRememberPassword = (value: boolean) => {
     loginConfig.value.rememberPassword = value;
@@ -157,6 +305,10 @@
 </script>
 
 <style lang="less" scoped>
+  .deep(arco-card-body) {
+    padding: 0;
+  }
+
   .login-form {
     &-wrapper {
       height: 50vh;
@@ -164,12 +316,8 @@
     }
 
     &-out-card {
-      width: 100%;
-      height: 100%;
       border-radius: 16px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      display: flex;
-      justify-content: center;
       align-items: center;
     }
 
@@ -194,14 +342,14 @@
       line-height: 32px;
     }
 
-    &-password-actions {
+    &-login-actions {
       display: flex;
       justify-content: space-between;
     }
 
-    &-register-btn {
-      color: var(--color-text-3) !important;
-      text-align: center;
+    &-register-actions {
+      display: flex;
+      justify-content: end;
     }
   }
 </style>

@@ -7,11 +7,22 @@ export interface LoginData {
   userPassword: string;
 }
 
+export interface RegisterData {
+  userAccount: string;
+  userPassword: string;
+  checkPassword: string;
+}
+
 export interface LoginRes {
   token: string;
 }
+
 export function login(data: LoginData) {
   return axios.post<LoginRes>('/api/user/login', data);
+}
+
+export function register(data: RegisterData) {
+  return axios.post<LoginRes>('/api/user/register', data);
 }
 
 export function logout() {
