@@ -1,10 +1,9 @@
 import Mock from 'mockjs';
 import setupMock, {
-  successResponseWrap,
   failResponseWrap,
+  successResponseWrap,
 } from '@/utils/setup-mock';
 
-import { MockParams } from '@/types/mock';
 import { isLogin } from '@/utils/auth';
 
 setupMock({
@@ -63,9 +62,9 @@ setupMock({
     // });
 
     // 登出
-    Mock.mock(new RegExp('/api/user/logout'), () => {
-      return successResponseWrap(null);
-    });
+    // Mock.mock(new RegExp('/api/user/logout'), () => {
+    //   return successResponseWrap(null);
+    // });
 
     // 用户的服务端菜单
     Mock.mock(new RegExp('/api/user/menu'), () => {
