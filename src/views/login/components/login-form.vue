@@ -90,7 +90,7 @@
       <a-row v-if="loginType === 'register'" align="center">
         <a-col :offset="1" :span="12">
           <img
-            src="src/assets/images/login/register-bg.svg"
+            src="@/assets/images/login/register-bg.svg"
             style="width: 100%"
           />
         </a-col>
