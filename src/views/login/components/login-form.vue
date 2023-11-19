@@ -3,7 +3,7 @@
     <a-card class="login-form-out-card">
       <a-row v-if="loginType === 'login'" align="center">
         <a-col :offset="1" :span="12">
-          <img src="src/assets/images/login/login-bg.svg" style="width: 100%" />
+          <img src="@/assets/images/login/login-bg.svg" style="width: 100%" />
         </a-col>
         <a-col :offset="1" :span="9">
           <a-card :bordered="false">
