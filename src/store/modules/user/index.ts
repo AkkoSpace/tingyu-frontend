@@ -44,8 +44,7 @@ const useUserStore = defineStore('user', {
         this.role = this.role === 'user' ? 'admin' : 'user';
         resolve(this.role);
       });
-    },
-    // Set user's information
+    }, // Set user's information
     setInfo(partial: Partial<UserState>) {
       this.$patch(partial);
     },
@@ -58,7 +57,6 @@ const useUserStore = defineStore('user', {
     // Get user's information
     async info() {
       const res = await getUserInfo();
-
       this.setInfo(res.data);
     },
 
@@ -66,7 +64,7 @@ const useUserStore = defineStore('user', {
     async login(loginForm: LoginData) {
       try {
         const res = await userLogin(loginForm);
-        setToken(res.data.token);
+        setToken(res.data.toString());
       } catch (err) {
         clearToken();
         throw err;
@@ -89,8 +87,7 @@ const useUserStore = defineStore('user', {
       clearToken();
       removeRouteListener();
       appStore.clearServerMenu();
-    },
-    // Logout
+    }, // Logout
     async logout() {
       try {
         await userLogout();
