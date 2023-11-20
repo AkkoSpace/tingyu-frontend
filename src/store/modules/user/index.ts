@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia';
 import {
-  login as userLogin,
-  logout as userLogout,
   getUserInfo,
+  login as userLogin,
   LoginData,
+  logout as userLogout,
+  register as userRegister,
+  RegisterData,
 } from '@/api/user';
-import { setToken, clearToken } from '@/utils/auth';
+import { clearToken, setToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
 import { UserState } from './types';
 import useAppStore from '../app';
@@ -70,6 +72,17 @@ const useUserStore = defineStore('user', {
         throw err;
       }
     },
+
+    async register(registerForm: RegisterData) {
+      try {
+        const res = await userRegister(registerForm);
+        setToken(res.data.token);
+      } catch (err) {
+        clearToken();
+        throw err;
+      }
+    },
+
     logoutCallBack() {
       const appStore = useAppStore();
       this.resetInfo();

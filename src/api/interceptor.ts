@@ -1,12 +1,12 @@
-import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios from 'axios';
 import { Message, Modal } from '@arco-design/web-vue';
 import { useUserStore } from '@/store';
 import { getToken } from '@/utils/auth';
 
 export interface HttpResponse<T = unknown> {
   status: number;
-  msg: string;
+  message: string;
   code: number;
   data: T;
 }
@@ -39,10 +39,10 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data;
-    // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
+    // if the custom code is not 0, it is judged as an error.
+    if (res.code !== 0) {
       Message.error({
-        content: res.msg || 'Error',
+        content: res.message || 'Error',
         duration: 5 * 1000,
       });
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
@@ -63,7 +63,7 @@ axios.interceptors.response.use(
           },
         });
       }
-      return Promise.reject(new Error(res.msg || 'Error'));
+      return Promise.reject(new Error(res.message || 'Error'));
     }
     return res;
   },
