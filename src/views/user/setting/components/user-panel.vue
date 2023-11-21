@@ -68,24 +68,24 @@
   };
   const renderData = [
     {
-      label: 'userSetting.label.name',
-      value: userStore.name,
+      label: 'userSetting.label.userName',
+      value: userStore.userName,
     },
     {
       label: 'userSetting.label.certification',
       value: userStore.certification,
     },
     {
-      label: 'userSetting.label.accountId',
-      value: userStore.accountId,
+      label: 'userSetting.label.id',
+      value: userStore.id,
     },
     {
       label: 'userSetting.label.phone',
       value: userStore.phone,
     },
     {
-      label: 'userSetting.label.registrationDate',
-      value: userStore.registrationDate,
+      label: 'userSetting.label.createDate',
+      value: userStore.createDate,
     },
   ] as DescData[];
   const fileList = ref<FileItem[]>([file]);

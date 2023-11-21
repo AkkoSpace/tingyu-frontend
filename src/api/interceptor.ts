@@ -15,6 +15,8 @@ if (import.meta.env.VITE_API_BASE_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 }
 
+let tokenFlag = false;
+
 axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // let each request carry token
@@ -26,6 +28,16 @@ axios.interceptors.request.use(
         config.headers = {};
       }
       config.headers.Authorization = `Bearer ${token}`;
+      if (!tokenFlag) {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (payload.exp * 1000 - 60000 * 9 < Date.now()) {
+          tokenFlag = true;
+          console.log('token过期');
+          const userStore = useUserStore();
+          userStore.auth();
+          // await useUserStore().logout();
+        }
+      }
     }
     return config;
   },

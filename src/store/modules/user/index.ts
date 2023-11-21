@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import {
+  auth as userAuth,
   getUserInfo,
   login as userLogin,
   LoginData,
@@ -14,21 +15,11 @@ import useAppStore from '../app';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
-    name: undefined,
-    avatar: undefined,
-    job: undefined,
-    organization: undefined,
-    location: undefined,
+    userName: undefined,
+    userAvatar: undefined,
     email: undefined,
-    introduction: undefined,
-    personalWebsite: undefined,
-    jobName: undefined,
-    organizationName: undefined,
-    locationName: undefined,
-    phone: undefined,
-    registrationDate: undefined,
-    accountId: undefined,
-    certification: undefined,
+    createDate: undefined,
+    id: undefined,
     role: '',
   }),
 
@@ -58,6 +49,16 @@ const useUserStore = defineStore('user', {
     async info() {
       const res = await getUserInfo();
       this.setInfo(res.data);
+    },
+
+    // auth
+    async auth() {
+      try {
+        await userAuth();
+      } catch (err) {
+        clearToken();
+        throw err;
+      }
     },
 
     // Login
