@@ -30,11 +30,13 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
       if (!tokenFlag) {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        if (payload.exp * 1000 - 60000 * 9 < Date.now()) {
+        if (payload.exp * 1000 - 1000 * 60 * 9 < Date.now()) {
           tokenFlag = true;
           console.log('token过期');
           const userStore = useUserStore();
-          userStore.auth();
+          userStore.auth().then(() => {
+            tokenFlag = false;
+          });
           // await useUserStore().logout();
         }
       }
@@ -50,8 +52,8 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data;
-    // if the custom code is not 0, it is judged as an error.
-    if (res.code !== 0) {
+    // if the custom code is not 20000, it is judged as an error.
+    if (res.code !== 20000) {
       Message.error({
         content: res.message || 'Error',
         duration: 5 * 1000,

@@ -54,7 +54,8 @@ const useUserStore = defineStore('user', {
     // auth
     async auth() {
       try {
-        await userAuth();
+        const res = await userAuth();
+        setToken(res.data);
       } catch (err) {
         clearToken();
         throw err;
