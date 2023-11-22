@@ -30,9 +30,9 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
       if (!tokenFlag) {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        if (payload.exp * 1000 - 1000 * 60 * 9 < Date.now()) {
+        // access token 有效期不足一分钟或已过期时，重新获取 access token
+        if (payload.exp * 1000 - 1000 * 60 < Date.now()) {
           tokenFlag = true;
-          console.log('token过期');
           const userStore = useUserStore();
           userStore.auth().then(() => {
             tokenFlag = false;
