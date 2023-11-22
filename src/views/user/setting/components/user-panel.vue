@@ -3,10 +3,10 @@
     <a-space :size="54">
       <a-upload
         :custom-request="customRequest"
-        list-type="picture-card"
         :file-list="fileList"
-        :show-upload-button="true"
         :show-file-list="false"
+        :show-upload-button="true"
+        list-type="picture-card"
         @change="uploadChange"
       >
         <template #upload-button>
@@ -19,10 +19,8 @@
         </template>
       </a-upload>
       <a-descriptions
-        :data="renderData"
         :column="2"
-        align="right"
-        layout="inline-horizontal"
+        :data="renderData"
         :label-style="{
           width: '140px',
           fontWeight: 'normal',
@@ -33,16 +31,20 @@
           paddingLeft: '8px',
           textAlign: 'left',
         }"
+        align="right"
+        layout="inline-horizontal"
       >
         <template #label="{ label }">{{ $t(label) }} :</template>
         <template #value="{ value, data }">
-          <a-tag
-            v-if="data.label === 'userSetting.label.certification'"
-            color="green"
-            size="small"
-          >
-            已认证
+          <a-tag v-if="value === 'user'" color="green" size="small">
+            用户
           </a-tag>
+          <a-tag v-else-if="value === 'admin'" color="red" size="small">
+            管理员
+          </a-tag>
+          <span v-else-if="data.label === 'userSetting.label.createDate'">
+            {{ formatDate(value) }}
+          </span>
           <span v-else>{{ value }}</span>
         </template>
       </a-descriptions>
@@ -60,28 +62,33 @@
   import { userUploadApi } from '@/api/user-center';
   import type { DescData } from '@arco-design/web-vue/es/descriptions/interface';
 
+  const formatDate = (date: string) => {
+    console.log(date);
+    return date;
+  };
+
   const userStore = useUserStore();
   const file = {
     uid: '-2',
     name: 'avatar.png',
-    url: userStore.avatar,
+    url: userStore.userAvatar,
   };
   const renderData = [
     {
-      label: 'userSetting.label.userName',
-      value: userStore.userName,
-    },
-    {
-      label: 'userSetting.label.certification',
-      value: userStore.certification,
+      label: 'userSetting.label.userAccount',
+      value: userStore.userAccount,
     },
     {
       label: 'userSetting.label.id',
       value: userStore.id,
     },
     {
-      label: 'userSetting.label.phone',
-      value: userStore.phone,
+      label: 'userSetting.label.userName',
+      value: userStore.userName,
+    },
+    {
+      label: 'userSetting.label.userRole',
+      value: userStore.userRole,
     },
     {
       label: 'userSetting.label.createDate',
@@ -136,16 +143,18 @@
   };
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
   .arco-card {
     padding: 14px 0 4px 4px;
     border-radius: 4px;
   }
+
   :deep(.arco-avatar-trigger-icon-button) {
     width: 32px;
     height: 32px;
     line-height: 32px;
     background-color: #e8f3ff;
+
     .arco-icon-camera {
       margin-top: 8px;
       color: rgb(var(--arcoblue-6));

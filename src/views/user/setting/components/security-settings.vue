@@ -25,71 +25,93 @@
       <a-list-item-meta>
         <template #avatar>
           <a-typography-paragraph>
-            {{ $t('userSetting.SecuritySettings.form.label.securityQuestion') }}
-          </a-typography-paragraph>
-        </template>
-        <template #description>
-          <div class="content">
-            <a-typography-paragraph class="tip">
-              {{
-                $t('userSetting.SecuritySettings.placeholder.securityQuestion')
-              }}
-            </a-typography-paragraph>
-          </div>
-          <div class="operation">
-            <a-link>
-              {{ $t('userSetting.SecuritySettings.button.settings') }}
-            </a-link>
-          </div>
-        </template>
-      </a-list-item-meta>
-    </a-list-item>
-    <a-list-item>
-      <a-list-item-meta>
-        <template #avatar>
-          <a-typography-paragraph>
-            {{ $t('userSetting.SecuritySettings.form.label.phone') }}
+            {{ $t('userSetting.SecuritySettings.form.label.deleteAccount') }}
           </a-typography-paragraph>
         </template>
         <template #description>
           <div class="content">
             <a-typography-paragraph>
-              已绑定：150******50
+              {{ $t('userSetting.SecuritySettings.placeholder.deleteAccount') }}
             </a-typography-paragraph>
           </div>
           <div class="operation">
             <a-link>
-              {{ $t('userSetting.SecuritySettings.button.update') }}
+              {{ $t('userSetting.SecuritySettings.button.deleteAccount') }}
             </a-link>
           </div>
         </template>
       </a-list-item-meta>
     </a-list-item>
-    <a-list-item>
-      <a-list-item-meta>
-        <template #avatar>
-          <a-typography-paragraph>
-            {{ $t('userSetting.SecuritySettings.form.label.email') }}
-          </a-typography-paragraph>
-        </template>
-        <template #description>
-          <div class="content">
-            <a-typography-paragraph class="tip">
-              {{ $t('userSetting.SecuritySettings.placeholder.email') }}
-            </a-typography-paragraph>
-          </div>
-          <div class="operation">
-            <a-link>
-              {{ $t('userSetting.SecuritySettings.button.update') }}
-            </a-link>
-          </div>
-        </template>
-      </a-list-item-meta>
-    </a-list-item>
+<!--    <a-list-item>-->
+<!--      <a-list-item-meta>-->
+<!--        <template #avatar>-->
+<!--          <a-typography-paragraph>-->
+<!--            {{ $t('userSetting.SecuritySettings.form.label.securityQuestion') }}-->
+<!--          </a-typography-paragraph>-->
+<!--        </template>-->
+<!--        <template #description>-->
+<!--          <div class="content">-->
+<!--            <a-typography-paragraph class="tip">-->
+<!--              {{-->
+<!--                $t('userSetting.SecuritySettings.placeholder.securityQuestion')-->
+<!--              }}-->
+<!--            </a-typography-paragraph>-->
+<!--          </div>-->
+<!--          <div class="operation">-->
+<!--            <a-link>-->
+<!--              {{ $t('userSetting.SecuritySettings.button.settings') }}-->
+<!--            </a-link>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </a-list-item-meta>-->
+<!--    </a-list-item>-->
+<!--    <a-list-item>-->
+<!--      <a-list-item-meta>-->
+<!--        <template #avatar>-->
+<!--          <a-typography-paragraph>-->
+<!--            {{ $t('userSetting.SecuritySettings.form.label.phone') }}-->
+<!--          </a-typography-paragraph>-->
+<!--        </template>-->
+<!--        <template #description>-->
+<!--          <div class="content">-->
+<!--            <a-typography-paragraph>-->
+<!--              已绑定：150******50-->
+<!--            </a-typography-paragraph>-->
+<!--          </div>-->
+<!--          <div class="operation">-->
+<!--            <a-link>-->
+<!--              {{ $t('userSetting.SecuritySettings.button.update') }}-->
+<!--            </a-link>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </a-list-item-meta>-->
+<!--    </a-list-item>-->
+<!--    <a-list-item>-->
+<!--      <a-list-item-meta>-->
+<!--        <template #avatar>-->
+<!--          <a-typography-paragraph>-->
+<!--            {{ $t('userSetting.SecuritySettings.form.label.email') }}-->
+<!--          </a-typography-paragraph>-->
+<!--        </template>-->
+<!--        <template #description>-->
+<!--          <div class="content">-->
+<!--            <a-typography-paragraph class="tip">-->
+<!--              {{ $t('userSetting.SecuritySettings.placeholder.email') }}-->
+<!--            </a-typography-paragraph>-->
+<!--          </div>-->
+<!--          <div class="operation">-->
+<!--            <a-link>-->
+<!--              {{ $t('userSetting.SecuritySettings.button.update') }}-->
+<!--            </a-link>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </a-list-item-meta>-->
+<!--    </a-list-item>-->
   </a-list>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+</script>
 
 <style scoped lang="less">
   :deep(.arco-list-item) {

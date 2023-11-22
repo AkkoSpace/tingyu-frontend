@@ -19,8 +19,9 @@ export default {
   'userSetting.reset': 'Reset',
   // new
   'userSetting.label.certification': 'Certification',
-  'userSetting.label.phone': 'Phone',
-  'userSetting.label.id': 'Id',
+  'userSetting.label.userRole': 'Role Type',
+  'userSetting.label.id': 'User Id',
+  'userSetting.label.userName': 'User Name',
   'userSetting.label.registrationDate': 'Registration Date',
   'userSetting.tab.basicInformation': 'Basic Information',
   'userSetting.tab.securitySettings': 'Security Settings',

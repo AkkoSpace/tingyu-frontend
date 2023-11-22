@@ -10,7 +10,7 @@ export default {
   'userSetting.title.basicInfo': '基本信息',
   'userSetting.title.socialInfo': '社交信息',
   'userSetting.label.userAvatar': '头像',
-  'userSetting.label.userName': '用户名',
+  'userSetting.label.userName': '用户昵称',
   'userSetting.label.location': '办公地点',
   'userSetting.label.introduction': '个人简介',
   'userSetting.label.personalWebsite': '个人网站',
@@ -19,8 +19,9 @@ export default {
   'userSetting.reset': '重置',
   // new
   'userSetting.label.certification': '实名认证',
-  'userSetting.label.phone': '手机号码',
-  'userSetting.label.id': 'ID',
+  'userSetting.label.userRole': '角色类型',
+  'userSetting.label.id': '用户 ID',
+  'userSetting.label.userAccount': '用户账号',
   'userSetting.label.createDate': '创建时间',
   'userSetting.tab.basicInformation': '基础信息',
   'userSetting.tab.securitySettings': '安全设置',
@@ -44,6 +45,7 @@ export default {
     '请输入您的个人简介，最多不超过200字。',
   'userSetting.form.error.profile.maxLength': '最多不超过200字',
   'userSetting.SecuritySettings.form.label.password': '登录密码',
+  'userSetting.SecuritySettings.placeholder.deleteAccount': '删除账号',
   'userSetting.SecuritySettings.placeholder.password':
     '已设置。密码至少6位字符，支持数字、字母和除空格外的特殊字符，且必须同时包含数字和大小写字母。',
   'userSetting.SecuritySettings.form.label.securityQuestion': '密保问题',
