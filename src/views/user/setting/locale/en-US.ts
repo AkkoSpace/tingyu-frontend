@@ -22,6 +22,7 @@ export default {
   'userSetting.label.userRole': 'Role Type',
   'userSetting.label.id': 'User Id',
   'userSetting.label.userName': 'User Name',
+  'userSetting.label.createDate': 'Create Date',
   'userSetting.label.registrationDate': 'Registration Date',
   'userSetting.tab.basicInformation': 'Basic Information',
   'userSetting.tab.securitySettings': 'Security Settings',

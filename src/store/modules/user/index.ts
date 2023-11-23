@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import {
   auth as userAuth,
+  DeleteData,
+  deleteUser,
   getUserInfo,
   login as userLogin,
   LoginData,
@@ -35,44 +37,9 @@ const useUserStore = defineStore('user', {
         this.userRole = this.userRole === 'user' ? 'admin' : 'user';
         resolve(this.userRole);
       });
-    }, // Set user's information
-    setInfo(partial: Partial<UserState>) {
-      this.$patch(partial);
     },
 
-    // Reset user's information
-    resetInfo() {
-      this.$reset();
-    },
-
-    // Get user's information
-    async info() {
-      const res = await getUserInfo();
-      this.setInfo(res.data);
-    },
-
-    // auth
-    async auth() {
-      try {
-        const res = await userAuth();
-        setToken(res.data);
-      } catch (err) {
-        clearToken();
-        throw err;
-      }
-    },
-
-    // Login
-    async login(loginForm: LoginData) {
-      try {
-        const res = await userLogin(loginForm);
-        setToken(res.data.toString());
-      } catch (err) {
-        clearToken();
-        throw err;
-      }
-    },
-
+    // 注册(Register)
     async register(registerForm: RegisterData) {
       try {
         const res = await userRegister(registerForm);
@@ -83,19 +50,73 @@ const useUserStore = defineStore('user', {
       }
     },
 
-    logoutCallBack() {
-      const appStore = useAppStore();
-      this.resetInfo();
-      clearToken();
-      removeRouteListener();
-      appStore.clearServerMenu();
-    }, // Logout
+    // 登录(Login)
+    async login(loginForm: LoginData) {
+      try {
+        const res = await userLogin(loginForm);
+        setToken(res.data.toString());
+      } catch (err) {
+        clearToken();
+        throw err;
+      }
+    },
+
+    // 登出(Logout)
     async logout() {
       try {
         await userLogout();
       } finally {
         this.logoutCallBack();
       }
+    },
+
+    // 注销(Delete)
+    async delete(id: DeleteData) {
+      // eslint-disable-next-line no-useless-catch
+      try {
+        const res = await deleteUser(id);
+        if (res.data) {
+          this.logoutCallBack();
+        }
+      } catch (err) {
+        throw err;
+      }
+    },
+
+    // 验证(Auth)
+    async auth() {
+      try {
+        const res = await userAuth();
+        setToken(res.data);
+      } catch (err) {
+        clearToken();
+        throw err;
+      }
+    },
+
+    // 获取用户信息(Info)
+    async info() {
+      const res = await getUserInfo();
+      this.setInfo(res.data);
+    },
+
+    // 设置用户信息(Set user's information)
+    setInfo(partial: Partial<UserState>) {
+      this.$patch(partial);
+    },
+
+    // 重置用户信息(Reset user's information)
+    resetInfo() {
+      this.$reset();
+    },
+
+    // 登出回调函数(Logout callback function)
+    logoutCallBack() {
+      const appStore = useAppStore();
+      this.resetInfo();
+      clearToken();
+      removeRouteListener();
+      appStore.clearServerMenu();
     },
   },
 });

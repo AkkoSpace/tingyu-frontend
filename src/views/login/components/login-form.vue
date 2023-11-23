@@ -207,6 +207,7 @@
   import { useStorage } from '@vueuse/core';
   import { useUserStore } from '@/store';
   import useLoading from '@/hooks/loading';
+  import { encrptPassword } from '@/utils/auth';
   import type { LoginData, RegisterData } from '@/api/user';
 
   const router = useRouter();
@@ -254,9 +255,11 @@
     if (!errors) {
       setLoading(true);
       try {
+        values.userPassword = encrptPassword(values.userPassword);
+        console.log(values);
         await userStore.login(values as LoginData);
         const { redirect, ...othersQuery } = router.currentRoute.value.query;
-        router.push({
+        await router.push({
           name: (redirect as string) || 'Workplace',
           query: {
             ...othersQuery,

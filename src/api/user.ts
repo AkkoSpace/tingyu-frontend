@@ -13,24 +13,32 @@ export interface RegisterData {
   checkPassword: string;
 }
 
+export interface DeleteData {
+  id: string;
+}
+
 export interface LoginRes {
   token: string;
-}
-
-export function auth() {
-  return axios.post('/api/user/auth');
-}
-
-export function login(data: LoginData) {
-  return axios.post<LoginRes>('/api/user/login', data);
 }
 
 export function register(data: RegisterData) {
   return axios.post<LoginRes>('/api/user/register', data);
 }
 
+export function login(data: LoginData) {
+  return axios.post<LoginRes>('/api/user/login', data);
+}
+
 export function logout() {
   return axios.post<LoginRes>('/api/user/logout');
+}
+
+export function deleteUser(data: DeleteData) {
+  return axios.post('/api/user/delete', data);
+}
+
+export function auth() {
+  return axios.post('/api/user/auth');
 }
 
 export function getUserInfo() {

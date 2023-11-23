@@ -1,4 +1,12 @@
 export default {
+  // 删除
+  'userSetting.SecuritySettings.modal.title': '注销账号',
+  'userSetting.SecuritySettings.modal.content':
+    '请注意，注销账号后，该账号将永久删除且无法恢复。',
+  'userSetting.SecuritySettings.modal.cancel': '取消',
+  'userSetting.SecuritySettings.modal.okText': '去意已决',
+  'userSetting.SecuritySettings.modal.cancelText': '还是算了',
+
   'menu.user.setting': '用户设置',
   'userSetting.menu.title.info': '个人信息',
   'userSetting.menu.title.account': '账号设置',
@@ -17,7 +25,6 @@ export default {
   'userSetting.save': '保存',
   'userSetting.cancel': '取消',
   'userSetting.reset': '重置',
-  // new
   'userSetting.label.certification': '实名认证',
   'userSetting.label.userRole': '角色类型',
   'userSetting.label.id': '用户 ID',
@@ -45,14 +52,16 @@ export default {
     '请输入您的个人简介，最多不超过200字。',
   'userSetting.form.error.profile.maxLength': '最多不超过200字',
   'userSetting.SecuritySettings.form.label.password': '登录密码',
-  'userSetting.SecuritySettings.placeholder.deleteAccount': '删除账号',
+  'userSetting.SecuritySettings.form.label.deleteAccount': '注销账号',
+  'userSetting.SecuritySettings.placeholder.deleteAccount':
+    '请注意，注销账号后，该账号将永久删除且无法恢复。',
+  'userSetting.SecuritySettings.button.deleteAccount': '注销',
   'userSetting.SecuritySettings.placeholder.password':
     '已设置。密码至少6位字符，支持数字、字母和除空格外的特殊字符，且必须同时包含数字和大小写字母。',
   'userSetting.SecuritySettings.form.label.securityQuestion': '密保问题',
   'userSetting.SecuritySettings.placeholder.securityQuestion':
     '您暂未设置密保问题，密保问题可以有效的保护账号的安全。',
   'userSetting.SecuritySettings.form.label.phone': '安全手机',
-  // 'userSetting.SecuritySettings.placeholder.phone': '已绑定：150******50',
   'userSetting.SecuritySettings.form.label.email': '安全邮箱',
   'userSetting.SecuritySettings.placeholder.email':
     '您暂未设置邮箱，绑定邮箱可以用来找回密码、接收通知等。',

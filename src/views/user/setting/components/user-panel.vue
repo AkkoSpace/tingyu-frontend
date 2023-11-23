@@ -36,15 +36,15 @@
       >
         <template #label="{ label }">{{ $t(label) }} :</template>
         <template #value="{ value, data }">
+          <span v-if="data.label === 'userSetting.label.createDate'">
+            {{ value }}
+          </span>
           <a-tag v-if="value === 'user'" color="green" size="small">
             用户
           </a-tag>
           <a-tag v-else-if="value === 'admin'" color="red" size="small">
             管理员
           </a-tag>
-          <span v-else-if="data.label === 'userSetting.label.createDate'">
-            {{ formatDate(value) }}
-          </span>
           <span v-else>{{ value }}</span>
         </template>
       </a-descriptions>
