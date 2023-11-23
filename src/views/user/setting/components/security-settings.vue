@@ -140,10 +140,6 @@
           window.location.reload();
         }
       },
-      onCancel() {
-        // 关闭弹窗
-        Modal.destroyAll();
-      },
     });
   };
 </script>

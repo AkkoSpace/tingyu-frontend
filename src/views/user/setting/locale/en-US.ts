@@ -1,4 +1,18 @@
 export default {
+  // SecuritySettings
+  'userSetting.SecuritySettings.form.label.deleteAccount': 'Delete Account',
+  'userSetting.SecuritySettings.placeholder.deleteAccount':
+    'Please note that after the account is cancelled, the account will be permanently deleted and cannot be recovered.',
+  'userSetting.SecuritySettings.button.deleteAccount': 'Delete',
+
+  // SecuritySettings - delete
+  'userSetting.SecuritySettings.modal.title': 'Delete Account',
+  'userSetting.SecuritySettings.modal.content':
+    'Please note that after the account is cancelled, the account will be permanently deleted and cannot be recovered.',
+  'userSetting.SecuritySettings.modal.cancel': 'Cancel',
+  'userSetting.SecuritySettings.modal.okText': "I'm off",
+  'userSetting.SecuritySettings.modal.cancelText': "I'm kidding",
+
   'menu.user.setting': 'User Setting',
   'userSetting.menu.title.info': 'Personal Information',
   'userSetting.menu.title.account': 'Account Setting',

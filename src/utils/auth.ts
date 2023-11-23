@@ -20,10 +20,10 @@ const clearToken = () => {
   localStorage.removeItem(TOKEN_KEY);
 };
 
-const encrptPassword = (password: string) => {
+const encryptPassword = (password: string) => {
   const encrypt = new JSEncrypt();
   encrypt.setPublicKey(PUBLIC_KEY);
   return encrypt.encrypt(password);
 };
 
-export { isLogin, getToken, setToken, clearToken, encrptPassword };
+export { isLogin, getToken, setToken, clearToken, encryptPassword };

@@ -5,7 +5,7 @@ export default {
     '请注意，注销账号后，该账号将永久删除且无法恢复。',
   'userSetting.SecuritySettings.modal.cancel': '取消',
   'userSetting.SecuritySettings.modal.okText': '去意已决',
-  'userSetting.SecuritySettings.modal.cancelText': '还是算了',
+  'userSetting.SecuritySettings.modal.cancelText': '我点错了',
 
   'menu.user.setting': '用户设置',
   'userSetting.menu.title.info': '个人信息',
