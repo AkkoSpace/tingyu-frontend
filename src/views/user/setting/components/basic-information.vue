@@ -1,13 +1,12 @@
 <template>
   <a-form
     ref="formRef"
-    :model="formData"
-    class="form"
     :label-col-props="{ span: 8 }"
+    :model="formData"
     :wrapper-col-props="{ span: 16 }"
+    class="form"
   >
     <a-form-item
-      field="userName"
       :label="$t('userSetting.basicInfo.form.label.nickname')"
       :rules="[
         {
@@ -15,6 +14,7 @@
           message: $t('userSetting.form.error.nickname.required'),
         },
       ]"
+      field="userName"
     >
       <a-input
         v-model="formData.userName"
@@ -22,7 +22,6 @@
       />
     </a-form-item>
     <a-form-item
-      field="userProfile"
       :label="$t('userSetting.basicInfo.form.label.profile')"
       :rules="[
         {
@@ -30,6 +29,7 @@
           message: $t('userSetting.form.error.profile.maxLength'),
         },
       ]"
+      field="userProfile"
       row-class="keep-margin"
     >
       <a-textarea
@@ -54,7 +54,7 @@
   import { ref } from 'vue';
   import { FormInstance } from '@arco-design/web-vue/es/form';
   import { BasicInfoModel } from '@/api/user-center';
-  import { useUserStore } from "@/store";
+  import { useUserStore } from '@/store';
 
   const formRef = ref<FormInstance>();
   const userStore = useUserStore();
@@ -74,7 +74,7 @@
   };
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
   .form {
     width: 540px;
     margin: 0 auto;
