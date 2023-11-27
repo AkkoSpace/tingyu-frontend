@@ -39,7 +39,7 @@
     </a-form-item>
     <a-form-item>
       <a-space>
-        <a-button type="primary" @click="validate">
+        <a-button :loading="loading" type="primary" @click="update">
           {{ $t('userSetting.save') }}
         </a-button>
         <a-button type="secondary" @click="reset">
@@ -55,6 +55,10 @@
   import { FormInstance } from '@arco-design/web-vue/es/form';
   import { BasicInfoModel } from '@/api/user-center';
   import { useUserStore } from '@/store';
+  import useLoading from '@/hooks/loading';
+  import { InfoData } from '@/api/user';
+
+  const { loading, setLoading } = useLoading();
 
   const formRef = ref<FormInstance>();
   const userStore = useUserStore();
@@ -62,11 +66,12 @@
     userName: userStore.userName,
     userProfile: userStore.userProfile,
   });
-  const validate = async () => {
+  const update = async () => {
     const res = await formRef.value?.validate();
     if (!res) {
-      // do some thing
-      // you also can use html-type to submit
+      setLoading(true);
+      await userStore.updateInfo(formData.value as InfoData);
+      setLoading(false);
     }
   };
   const reset = async () => {

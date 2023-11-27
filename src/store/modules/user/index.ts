@@ -4,11 +4,13 @@ import {
   DeleteData,
   deleteUser,
   getUserInfo,
+  InfoData,
   login as userLogin,
   LoginData,
   logout as userLogout,
   register as userRegister,
   RegisterData,
+  updateUserInfo,
 } from '@/api/user';
 import { clearToken, setToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
@@ -108,6 +110,12 @@ const useUserStore = defineStore('user', {
     // 重置用户信息(Reset user's information)
     resetInfo() {
       this.$reset();
+    },
+
+    // 更新用户信息(Update user's information)
+    async updateInfo(infoForm: InfoData) {
+      const res = await updateUserInfo(infoForm);
+      this.setInfo(res.data);
     },
 
     // 登出回调函数(Logout callback function)
