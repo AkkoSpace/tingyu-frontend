@@ -1,5 +1,11 @@
 export default {
-  // 删除
+  // 更新密码
+  'userSetting.SecuritySettings.modal.title.updatePassword': '更新密码',
+  'userSetting.SecuritySettings.modal.content.updatePassword':
+    '请注意，更新密码后，您需要重新登录。',
+  'userSetting.SecuritySettings.modal.cancelText.updatePassword': '取消',
+  'userSetting.SecuritySettings.modal.okText.updatePassword': '更新',
+  // 注销账号
   'userSetting.SecuritySettings.modal.title': '注销账号',
   'userSetting.SecuritySettings.modal.content':
     '请注意，注销账号后，该账号将永久删除且无法恢复。',

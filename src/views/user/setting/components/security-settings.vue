@@ -14,7 +14,7 @@
             </a-typography-paragraph>
           </div>
           <div class="operation">
-            <a-link>
+            <a-link @click="handleUpdatePassword">
               {{ $t('userSetting.SecuritySettings.button.update') }}
             </a-link>
           </div>
@@ -42,84 +42,96 @@
         </template>
       </a-list-item-meta>
     </a-list-item>
-    <!--    <a-list-item>-->
-    <!--      <a-list-item-meta>-->
-    <!--        <template #avatar>-->
-    <!--          <a-typography-paragraph>-->
-    <!--            {{ $t('userSetting.SecuritySettings.form.label.securityQuestion') }}-->
-    <!--          </a-typography-paragraph>-->
-    <!--        </template>-->
-    <!--        <template #description>-->
-    <!--          <div class="content">-->
-    <!--            <a-typography-paragraph class="tip">-->
-    <!--              {{-->
-    <!--                $t('userSetting.SecuritySettings.placeholder.securityQuestion')-->
-    <!--              }}-->
-    <!--            </a-typography-paragraph>-->
-    <!--          </div>-->
-    <!--          <div class="operation">-->
-    <!--            <a-link>-->
-    <!--              {{ $t('userSetting.SecuritySettings.button.settings') }}-->
-    <!--            </a-link>-->
-    <!--          </div>-->
-    <!--        </template>-->
-    <!--      </a-list-item-meta>-->
-    <!--    </a-list-item>-->
-    <!--    <a-list-item>-->
-    <!--      <a-list-item-meta>-->
-    <!--        <template #avatar>-->
-    <!--          <a-typography-paragraph>-->
-    <!--            {{ $t('userSetting.SecuritySettings.form.label.phone') }}-->
-    <!--          </a-typography-paragraph>-->
-    <!--        </template>-->
-    <!--        <template #description>-->
-    <!--          <div class="content">-->
-    <!--            <a-typography-paragraph>-->
-    <!--              已绑定：150******50-->
-    <!--            </a-typography-paragraph>-->
-    <!--          </div>-->
-    <!--          <div class="operation">-->
-    <!--            <a-link>-->
-    <!--              {{ $t('userSetting.SecuritySettings.button.update') }}-->
-    <!--            </a-link>-->
-    <!--          </div>-->
-    <!--        </template>-->
-    <!--      </a-list-item-meta>-->
-    <!--    </a-list-item>-->
-    <!--    <a-list-item>-->
-    <!--      <a-list-item-meta>-->
-    <!--        <template #avatar>-->
-    <!--          <a-typography-paragraph>-->
-    <!--            {{ $t('userSetting.SecuritySettings.form.label.email') }}-->
-    <!--          </a-typography-paragraph>-->
-    <!--        </template>-->
-    <!--        <template #description>-->
-    <!--          <div class="content">-->
-    <!--            <a-typography-paragraph class="tip">-->
-    <!--              {{ $t('userSetting.SecuritySettings.placeholder.email') }}-->
-    <!--            </a-typography-paragraph>-->
-    <!--          </div>-->
-    <!--          <div class="operation">-->
-    <!--            <a-link>-->
-    <!--              {{ $t('userSetting.SecuritySettings.button.update') }}-->
-    <!--            </a-link>-->
-    <!--          </div>-->
-    <!--        </template>-->
-    <!--      </a-list-item-meta>-->
-    <!--    </a-list-item>-->
   </a-list>
+  <a-modal
+    v-model:visible="visible"
+    :cancel-button-props="{ shape: 'round' }"
+    :cancel-text="
+      $t('userSetting.SecuritySettings.modal.cancelText.updatePassword')
+    "
+    :ok-button-props="{ shape: 'round' }"
+    :ok-text="$t('userSetting.SecuritySettings.modal.okText.updatePassword')"
+    :title="$t('userSetting.SecuritySettings.modal.title.updatePassword')"
+    @cancel="handleUpdatePasswordCancel"
+    @ok="handleUpdatePasswordOk"
+  >
+    <div class="content">
+      <a-form :model-value="updatePassword" :rules="rules" label-width="120">
+        <a-form-item label="当前密码" name="currentPassword">
+          <a-input
+            v-model:value="updatePassword.currentPassword"
+            placeholder="请输入当前密码"
+            type="password"
+          />
+        </a-form-item>
+        <a-form-item label="新密码" name="newPassword">
+          <a-input
+            v-model:value="updatePassword.newPassword"
+            placeholder="请输入新密码"
+            type="password"
+          />
+        </a-form-item>
+        <a-form-item label="确认密码" name="confirmPassword">
+          <a-input
+            v-model:value="updatePassword.confirmPassword"
+            placeholder="请再次输入新密码"
+            type="password"
+          />
+        </a-form-item>
+      </a-form>
+    </div>
+  </a-modal>
 </template>
 
 <script lang="ts" setup>
   import { Modal } from '@arco-design/web-vue';
   import { useI18n } from 'vue-i18n';
   import { useUserStore } from '@/store';
+  import { ref } from 'vue';
 
   const { t } = useI18n();
 
   const userStore = useUserStore();
   const { userInfo } = userStore;
   const id = userInfo?.id;
+
+  const visible = ref(false);
+  const updatePassword = ref({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const rules = {
+    currentPassword: [
+      {
+        required: true,
+        message: t('userSetting.SecuritySettings.form.message.currentPassword'),
+      },
+    ],
+    newPassword: [
+      {
+        required: true,
+        message: t('userSetting.SecuritySettings.form.message.newPassword'),
+      },
+    ],
+    confirmPassword: [
+      {
+        required: true,
+        message: t('userSetting.SecuritySettings.form.message.confirmPassword'),
+      },
+    ],
+  };
+  const handleUpdatePasswordCancel = () => {
+    visible.value = false;
+  };
+
+  const handleUpdatePasswordOk = () => {
+    visible.value = false;
+  };
+
+  const handleUpdatePassword = () => {
+    visible.value = true;
+  };
   const handleDeleteAccount = () => {
     Modal.error({
       hideCancel: false,

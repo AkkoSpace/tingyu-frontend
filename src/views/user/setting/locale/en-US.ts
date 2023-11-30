@@ -1,4 +1,11 @@
 export default {
+  // UpdatePassword
+  'userSetting.SecuritySettings.modal.title.updatePassword': 'Update Password',
+  'userSetting.SecuritySettings.modal.content.updatePassword':
+    'Please note that after the password is updated, you need to log in again.',
+  'userSetting.SecuritySettings.modal.cancelText.updatePassword': 'Cancel',
+  'userSetting.SecuritySettings.modal.okText.updatePassword': 'Update',
+
   // SecuritySettings
   'userSetting.SecuritySettings.form.label.deleteAccount': 'Delete Account',
   'userSetting.SecuritySettings.placeholder.deleteAccount':
