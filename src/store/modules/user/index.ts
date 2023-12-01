@@ -11,6 +11,8 @@ import {
   register as userRegister,
   RegisterData,
   updateUserInfo,
+  updatePasswordData,
+  updatePassword,
 } from '@/api/user';
 import { clearToken, setToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
@@ -69,6 +71,19 @@ const useUserStore = defineStore('user', {
         await userLogout();
       } finally {
         this.logoutCallBack();
+      }
+    },
+
+    // 更新密码(Update password)
+    async updatePassword(passwordForm: updatePasswordData) {
+      // eslint-disable-next-line no-useless-catch
+      try {
+        const res = await updatePassword(passwordForm);
+        if (res.data) {
+          this.logoutCallBack();
+        }
+      } catch (err) {
+        throw err;
       }
     },
 

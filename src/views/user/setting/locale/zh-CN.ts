@@ -5,6 +5,12 @@ export default {
     '请注意，更新密码后，您需要重新登录。',
   'userSetting.SecuritySettings.modal.cancelText.updatePassword': '取消',
   'userSetting.SecuritySettings.modal.okText.updatePassword': '更新',
+  'userSetting.SecuritySettings.form.label.oldPassword': '旧密码',
+  'userSetting.SecuritySettings.form.label.newPassword': '新密码',
+  'userSetting.SecuritySettings.form.label.checkPassword': '确认密码',
+  'userSetting.SecuritySettings.placeholder.oldPassword': '请输入旧密码',
+  'userSetting.SecuritySettings.placeholder.newPassword': '请输入新密码',
+  'userSetting.SecuritySettings.placeholder.checkPassword': '请再次输入新密码',
   // 注销账号
   'userSetting.SecuritySettings.modal.title': '注销账号',
   'userSetting.SecuritySettings.modal.content':

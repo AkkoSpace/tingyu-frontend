@@ -26,6 +26,11 @@ export interface LoginRes {
   token: string;
 }
 
+export interface updatePasswordData {
+  oldPassword: string;
+  newPassword: string;
+}
+
 export function register(data: RegisterData) {
   return axios.post<LoginRes>('/api/user/register', data);
 }
@@ -36,6 +41,10 @@ export function login(data: LoginData) {
 
 export function logout() {
   return axios.post<LoginRes>('/api/user/logout');
+}
+
+export function updatePassword(data: updatePasswordData) {
+  return axios.post('/api/user/update/password', data);
 }
 
 export function deleteUser(data: DeleteData) {

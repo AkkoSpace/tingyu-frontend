@@ -57,24 +57,39 @@
   >
     <div class="content">
       <a-form :model-value="updatePassword" :rules="rules" label-width="120">
-        <a-form-item label="当前密码" name="currentPassword">
+        <a-form-item
+          :label="$t('userSetting.SecuritySettings.form.label.oldPassword')"
+          name="oldPassword"
+        >
           <a-input
-            v-model:value="updatePassword.currentPassword"
-            placeholder="请输入当前密码"
+            v-model:value="updatePassword.oldPassword"
+            :placeholder="
+              $t('userSetting.SecuritySettings.placeholder.oldPassword')
+            "
             type="password"
           />
         </a-form-item>
-        <a-form-item label="新密码" name="newPassword">
+        <a-form-item
+          :label="$t('userSetting.SecuritySettings.form.label.newPassword')"
+          name="newPassword"
+        >
           <a-input
             v-model:value="updatePassword.newPassword"
-            placeholder="请输入新密码"
+            :placeholder="
+              $t('userSetting.SecuritySettings.placeholder.newPassword')
+            "
             type="password"
           />
         </a-form-item>
-        <a-form-item label="确认密码" name="confirmPassword">
+        <a-form-item
+          :label="$t('userSetting.SecuritySettings.form.label.checkPassword')"
+          name="checkPassword"
+        >
           <a-input
-            v-model:value="updatePassword.confirmPassword"
-            placeholder="请再次输入新密码"
+            v-model:value="updatePassword.checkPassword"
+            :placeholder="
+              $t('userSetting.SecuritySettings.placeholder.checkPassword')
+            "
             type="password"
           />
         </a-form-item>
@@ -97,15 +112,15 @@
 
   const visible = ref(false);
   const updatePassword = ref({
-    currentPassword: '',
+    oldPassword: '',
     newPassword: '',
-    confirmPassword: '',
+    checkPassword: '',
   });
   const rules = {
-    currentPassword: [
+    oldPassword: [
       {
         required: true,
-        message: t('userSetting.SecuritySettings.form.message.currentPassword'),
+        message: t('userSetting.SecuritySettings.form.message.oldPassword'),
       },
     ],
     newPassword: [
@@ -114,10 +129,23 @@
         message: t('userSetting.SecuritySettings.form.message.newPassword'),
       },
     ],
-    confirmPassword: [
+    checkPassword: [
       {
         required: true,
-        message: t('userSetting.SecuritySettings.form.message.confirmPassword'),
+        message: t('userSetting.SecuritySettings.form.message.checkPassword'),
+        validator(rule: any, value: string) {
+          if (!value) {
+            return Promise.reject(
+              t('userSetting.SecuritySettings.form.message.checkPassword')
+            );
+          }
+          if (value !== updatePassword.value.newPassword) {
+            return Promise.reject(
+              t('userSetting.SecuritySettings.form.message.checkPassword')
+            );
+          }
+          return Promise.resolve();
+        },
       },
     ],
   };
@@ -125,8 +153,12 @@
     visible.value = false;
   };
 
-  const handleUpdatePasswordOk = () => {
-    visible.value = false;
+  const handleUpdatePasswordOk = async () => {
+    // 如果校验通过
+
+    await userStore.updatePassword({
+      ...updatePassword.value,
+    });
   };
 
   const handleUpdatePassword = () => {
