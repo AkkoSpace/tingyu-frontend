@@ -45,21 +45,17 @@
   </a-list>
   <a-modal
     v-model:visible="visible"
-    :cancel-button-props="{ shape: 'round' }"
-    :cancel-text="
-      $t('userSetting.SecuritySettings.modal.cancelText.updatePassword')
-    "
-    :ok-button-props="{ shape: 'round' }"
-    :ok-text="$t('userSetting.SecuritySettings.modal.okText.updatePassword')"
+    :closable="false"
+    :footer="false"
+    :mask-closable="false"
     :title="$t('userSetting.SecuritySettings.modal.title.updatePassword')"
-    @cancel="handleUpdatePasswordCancel"
-    @ok="handleUpdatePasswordOk"
   >
     <div class="content">
       <a-form
-        :ref="updatePasswordFormRef"
-        :model-value="updatePassword"
+        ref="formRef"
+        :model="updatePassword"
         label-width="120"
+        @submit="handleUpdatePasswordOk"
       >
         <a-form-item
           :label="$t('userSetting.SecuritySettings.form.label.oldPassword')"
@@ -71,7 +67,7 @@
               ),
             },
           ]"
-          name="oldPassword"
+          field="oldPassword"
         >
           <a-input
             v-model:value="updatePassword.oldPassword"
@@ -91,7 +87,7 @@
               ),
             },
           ]"
-          name="newPassword"
+          field="newPassword"
         >
           <a-input
             v-model:value="updatePassword.newPassword"
@@ -110,23 +106,8 @@
                 'userSetting.SecuritySettings.placeholder.checkPassword'
               ),
             },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('newPassword') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error(
-                    $t(
-                      'userSetting.SecuritySettings.placeholder.checkPassword' +
-                        'Error'
-                    )
-                  )
-                );
-              },
-            }),
           ]"
-          name="checkPassword"
+          field="checkPassword"
         >
           <a-input
             v-model:value="updatePassword.checkPassword"
@@ -136,8 +117,22 @@
             type="password"
           />
         </a-form-item>
+        <a-form-item>
+          <a-space>
+            <a-button :loading="loading" html-type="submit" type="primary">
+              {{ $t('userSetting.save') }}
+            </a-button>
+            <a-button type="secondary" @click="handleUpdatePasswordCancel">
+              {{ $t('userSetting.reset') }}
+            </a-button>
+          </a-space>
+        </a-form-item>
       </a-form>
     </div>
+    <template #footer>
+      <!--defined a blank div to hide ok -->
+      <div></div>
+    </template>
   </a-modal>
 </template>
 
@@ -146,6 +141,8 @@
   import { useI18n } from 'vue-i18n';
   import { useUserStore } from '@/store';
   import { ref } from 'vue';
+  import { FormInstance } from '@arco-design/web-vue/es/form';
+  import { updatePasswordData } from '@/api/user';
 
   const { t } = useI18n();
 
@@ -153,21 +150,25 @@
   const { userInfo } = userStore;
   const id = userInfo?.id;
 
+  const loading = ref(false);
   const visible = ref(false);
-  const updatePassword = ref({
+  const formRef = ref<FormInstance>();
+  const updatePassword = ref<updatePasswordData>({
     oldPassword: '',
     newPassword: '',
-    checkPassword: '',
   });
 
-  const updatePasswordFormRef = ref();
-  const handleUpdatePasswordCancel = () => {
+  const handleUpdatePasswordCancel = async () => {
+    await formRef.value?.resetFields();
     visible.value = false;
   };
 
   const handleUpdatePasswordOk = async () => {
-    const errors = await updatePasswordFormRef.value?.validate();
-    console.log("errors",errors);
+    const res = await formRef.value?.validate();
+    console.log('res', res);
+    if (!res) {
+      console.log('!res', res);
+    }
     // await userStore.updatePassword({
     //   ...updatePassword.value,
     // });
