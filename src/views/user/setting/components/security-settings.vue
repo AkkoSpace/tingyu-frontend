@@ -56,9 +56,21 @@
     @ok="handleUpdatePasswordOk"
   >
     <div class="content">
-      <a-form :model-value="updatePassword" :rules="rules" label-width="120">
+      <a-form
+        :ref="updatePasswordFormRef"
+        :model-value="updatePassword"
+        label-width="120"
+      >
         <a-form-item
           :label="$t('userSetting.SecuritySettings.form.label.oldPassword')"
+          :rules="[
+            {
+              required: true,
+              message: $t(
+                'userSetting.SecuritySettings.placeholder.oldPassword'
+              ),
+            },
+          ]"
           name="oldPassword"
         >
           <a-input
@@ -71,6 +83,14 @@
         </a-form-item>
         <a-form-item
           :label="$t('userSetting.SecuritySettings.form.label.newPassword')"
+          :rules="[
+            {
+              required: true,
+              message: $t(
+                'userSetting.SecuritySettings.placeholder.newPassword'
+              ),
+            },
+          ]"
           name="newPassword"
         >
           <a-input
@@ -83,6 +103,29 @@
         </a-form-item>
         <a-form-item
           :label="$t('userSetting.SecuritySettings.form.label.checkPassword')"
+          :rules="[
+            {
+              required: true,
+              message: $t(
+                'userSetting.SecuritySettings.placeholder.checkPassword'
+              ),
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('newPassword') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error(
+                    $t(
+                      'userSetting.SecuritySettings.placeholder.checkPassword' +
+                        'Error'
+                    )
+                  )
+                );
+              },
+            }),
+          ]"
           name="checkPassword"
         >
           <a-input
@@ -116,49 +159,18 @@
     newPassword: '',
     checkPassword: '',
   });
-  const rules = {
-    oldPassword: [
-      {
-        required: true,
-        message: t('userSetting.SecuritySettings.form.message.oldPassword'),
-      },
-    ],
-    newPassword: [
-      {
-        required: true,
-        message: t('userSetting.SecuritySettings.form.message.newPassword'),
-      },
-    ],
-    checkPassword: [
-      {
-        required: true,
-        message: t('userSetting.SecuritySettings.form.message.checkPassword'),
-        validator(rule: any, value: string) {
-          if (!value) {
-            return Promise.reject(
-              t('userSetting.SecuritySettings.form.message.checkPassword')
-            );
-          }
-          if (value !== updatePassword.value.newPassword) {
-            return Promise.reject(
-              t('userSetting.SecuritySettings.form.message.checkPassword')
-            );
-          }
-          return Promise.resolve();
-        },
-      },
-    ],
-  };
+
+  const updatePasswordFormRef = ref();
   const handleUpdatePasswordCancel = () => {
     visible.value = false;
   };
 
   const handleUpdatePasswordOk = async () => {
-    // 如果校验通过
-
-    await userStore.updatePassword({
-      ...updatePassword.value,
-    });
+    const errors = await updatePasswordFormRef.value?.validate();
+    console.log("errors",errors);
+    // await userStore.updatePassword({
+    //   ...updatePassword.value,
+    // });
   };
 
   const handleUpdatePassword = () => {
