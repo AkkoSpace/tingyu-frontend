@@ -1,33 +1,25 @@
 <template>
   <div class="header">
-    <a-space :size="12" direction="vertical" align="center">
+    <a-space :size="12" align="center" direction="vertical">
       <a-avatar :size="64">
         <template #trigger-icon>
           <icon-camera />
         </template>
-        <img :src="userInfo.avatar" />
+        <img :src="userInfo.userAvatar" />
       </a-avatar>
       <a-typography-title :heading="6" style="margin: 0">
-        {{ userInfo.name }}
+        {{ userInfo.userName }}
       </a-typography-title>
-      <div class="user-msg">
-        <a-space :size="18">
-          <div>
-            <icon-user />
-            <a-typography-text>{{ userInfo.jobName }}</a-typography-text>
-          </div>
-          <div>
-            <icon-home />
-            <a-typography-text>
-              {{ userInfo.organizationName }}
-            </a-typography-text>
-          </div>
-          <div>
-            <icon-location />
-            <a-typography-text>{{ userInfo.locationName }}</a-typography-text>
-          </div>
-        </a-space>
-      </div>
+      <!--      <div class="user-msg">-->
+      <!--        <a-space :size="18">-->
+      <!--          <div>-->
+      <!--            <icon-home />-->
+      <!--          </div>-->
+      <!--          <div>-->
+      <!--            <icon-location />-->
+      <!--          </div>-->
+      <!--        </a-space>-->
+      <!--      </div>-->
     </a-space>
   </div>
 </template>
@@ -38,7 +30,7 @@
   const userInfo = useUserStore();
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
   .header {
     display: flex;
     align-items: center;
@@ -57,10 +49,12 @@
         vertical-align: -1px;
       }
     }
+
     .user-msg {
       .arco-icon {
         color: rgb(var(--gray-10));
       }
+
       .arco-typography {
         margin-left: 6px;
       }

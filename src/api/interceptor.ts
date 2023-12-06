@@ -18,7 +18,7 @@ if (import.meta.env.VITE_API_BASE_URL) {
 let tokenFlag = false;
 
 axios.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: AxiosRequestConfig | any) => {
     // let each request carry token
     // this project(TingYu) using the JWT token
     // Authorization is a custom headers key
@@ -50,7 +50,7 @@ axios.interceptors.request.use(
 );
 // add response interceptors
 axios.interceptors.response.use(
-  (response: AxiosResponse<HttpResponse>) => {
+  (response: AxiosResponse<HttpResponse> | any) => {
     const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {

@@ -108,7 +108,7 @@
               ),
             },
             {
-              validator: checkPassword && checkCheckPassword,
+              validator: checkCheckPassword,
             },
           ]"
           field="checkPassword"
@@ -186,7 +186,11 @@
   };
 
   const checkCheckPassword = async (value: string, callback: any) => {
-    if (value !== updatePassword.value.newPassword) {
+    if (value.length < 6 || value.length > 20) {
+      callback(t('userSetting.SecuritySettings.form.error.passwordLength'));
+    } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+      callback(t('userSetting.SecuritySettings.form.error.passwordFormat'));
+    } else if (value !== updatePassword.value.newPassword) {
       callback(t('userSetting.SecuritySettings.form.error.passwordUnmatched'));
     } else {
       callback();
