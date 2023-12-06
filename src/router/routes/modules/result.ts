@@ -6,6 +6,7 @@ const RESULT: AppRouteRecordRaw = {
   name: 'result',
   component: DEFAULT_LAYOUT,
   meta: {
+    hideInMenu: true,
     locale: 'menu.result',
     icon: 'icon-check-circle',
     requiresAuth: true,
@@ -17,6 +18,7 @@ const RESULT: AppRouteRecordRaw = {
       name: 'Success',
       component: () => import('@/views/result/success/index.vue'),
       meta: {
+        hideInMenu: true,
         locale: 'menu.result.success',
         requiresAuth: true,
         roles: ['admin'],
@@ -27,6 +29,7 @@ const RESULT: AppRouteRecordRaw = {
       name: 'Error',
       component: () => import('@/views/result/error/index.vue'),
       meta: {
+        hideInMenu: true,
         locale: 'menu.result.error',
         requiresAuth: true,
         roles: ['admin'],

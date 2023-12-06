@@ -6,6 +6,7 @@ const LIST: AppRouteRecordRaw = {
   name: 'list',
   component: DEFAULT_LAYOUT,
   meta: {
+    hideInMenu: true,
     locale: 'menu.list',
     requiresAuth: true,
     icon: 'icon-list',
@@ -17,6 +18,7 @@ const LIST: AppRouteRecordRaw = {
       name: 'SearchTable',
       component: () => import('@/views/list/search-table/index.vue'),
       meta: {
+        hideInMenu: true,
         locale: 'menu.list.searchTable',
         requiresAuth: true,
         roles: ['*'],
@@ -27,6 +29,7 @@ const LIST: AppRouteRecordRaw = {
       name: 'Card',
       component: () => import('@/views/list/card/index.vue'),
       meta: {
+        hideInMenu: true,
         locale: 'menu.list.cardList',
         requiresAuth: true,
         roles: ['*'],

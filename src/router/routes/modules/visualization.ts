@@ -6,6 +6,7 @@ const VISUALIZATION: AppRouteRecordRaw = {
   name: 'visualization',
   component: DEFAULT_LAYOUT,
   meta: {
+    hideInMenu: true,
     locale: 'menu.visualization',
     requiresAuth: true,
     icon: 'icon-apps',
@@ -17,6 +18,7 @@ const VISUALIZATION: AppRouteRecordRaw = {
       name: 'DataAnalysis',
       component: () => import('@/views/visualization/data-analysis/index.vue'),
       meta: {
+        hideInMenu: true,
         locale: 'menu.visualization.dataAnalysis',
         requiresAuth: true,
         roles: ['admin'],
@@ -28,6 +30,7 @@ const VISUALIZATION: AppRouteRecordRaw = {
       component: () =>
         import('@/views/visualization/multi-dimension-data-analysis/index.vue'),
       meta: {
+        hideInMenu: true,
         locale: 'menu.visualization.multiDimensionDataAnalysis',
         requiresAuth: true,
         roles: ['admin'],

@@ -6,6 +6,7 @@ const FORM: AppRouteRecordRaw = {
   name: 'form',
   component: DEFAULT_LAYOUT,
   meta: {
+    hideInMenu: true,
     locale: 'menu.form',
     icon: 'icon-settings',
     requiresAuth: true,
@@ -17,6 +18,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Step',
       component: () => import('@/views/form/step/index.vue'),
       meta: {
+        hideInMenu: true,
         locale: 'menu.form.step',
         requiresAuth: true,
         roles: ['admin'],
@@ -27,6 +29,7 @@ const FORM: AppRouteRecordRaw = {
       name: 'Group',
       component: () => import('@/views/form/group/index.vue'),
       meta: {
+        hideInMenu: true,
         locale: 'menu.form.group',
         requiresAuth: true,
         roles: ['admin'],
