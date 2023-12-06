@@ -9,6 +9,8 @@ import localeMonitor from '@/views/dashboard/monitor/locale/zh-CN';
 import localeSearchTable from '@/views/list/search-table/locale/zh-CN';
 import localeCardList from '@/views/list/card/locale/zh-CN';
 
+import localeMainPlan from '@/views/plan/main/locale/zh-CN';
+
 import localeStepForm from '@/views/form/step/locale/zh-CN';
 import localeGroupForm from '@/views/form/group/locale/zh-CN';
 
@@ -38,6 +40,7 @@ export default {
   'menu.result': '结果页',
   'menu.exception': '异常页',
   'menu.form': '表单页',
+  'menu.plan': '计划管理',
   'menu.profile': '详情页',
   'menu.visualization': '数据可视化',
   'menu.user': '个人中心',
@@ -50,7 +53,7 @@ export default {
   ...localeNavbar,
   ...localeLogin,
   ...localeWorkplace,
-
+  ...localeMainPlan,
   ...localeMonitor,
   ...localeSearchTable,
   ...localeCardList,
