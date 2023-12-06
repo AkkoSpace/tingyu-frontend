@@ -207,7 +207,9 @@
   import { useStorage } from '@vueuse/core';
   import { useUserStore } from '@/store';
   import useLoading from '@/hooks/loading';
+  import { encryptPassword } from '@/utils/auth';
   import type { LoginData, RegisterData } from '@/api/user';
+  import lodash from 'lodash';
 
   const router = useRouter();
   const { t } = useI18n();
@@ -220,6 +222,7 @@
     userAccount: '',
     userPassword: '',
     checkPassword: '',
+    isEncrypt: false,
   });
   const userInfo = reactive({
     userAccount: loginConfig.value.userAccount,
@@ -254,7 +257,13 @@
     if (!errors) {
       setLoading(true);
       try {
-        await userStore.login(values as LoginData);
+        const encryptValues = lodash.cloneDeep(values);
+        if (!loginConfig.value.isEncrypt) {
+          encryptValues.userPassword = encryptPassword(
+            encryptValues.userPassword
+          );
+        }
+        await userStore.login(encryptValues as LoginData);
         const { redirect, ...othersQuery } = router.currentRoute.value.query;
         router.push({
           name: (redirect as string) || 'Workplace',
@@ -264,11 +273,10 @@
         });
         Message.success(t('login.form.login.success'));
         const { rememberPassword } = loginConfig.value;
-        const { userAccount, userPassword } = values;
-        // 实际生产环境需要进行加密存储。
-        // The actual production environment requires encrypted storage.
+        const { userAccount, userPassword } = encryptValues;
         loginConfig.value.userAccount = rememberPassword ? userAccount : '';
         loginConfig.value.userPassword = rememberPassword ? userPassword : '';
+        loginConfig.value.isEncrypt = true;
       } catch (err) {
         errorMessage.value = (err as Error).message;
       } finally {
@@ -288,7 +296,14 @@
     if (!errors) {
       setLoading(true);
       try {
-        await userStore.register(values as RegisterData);
+        const encryptValues = lodash.cloneDeep(values);
+        encryptValues.userPassword = encryptPassword(
+          encryptValues.userPassword
+        );
+        encryptValues.checkPassword = encryptPassword(
+          encryptValues.checkPassword
+        );
+        await userStore.register(encryptValues as RegisterData);
         Message.success(t('login.form.register.success'));
         loginType.value = 'login';
         errorMessage.value = '';

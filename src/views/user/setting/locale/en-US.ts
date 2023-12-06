@@ -1,4 +1,40 @@
 export default {
+  // UpdatePassword
+  'userSetting.SecuritySettings.modal.title.updatePassword': 'Update Password',
+  'userSetting.SecuritySettings.modal.content.updatePassword':
+    'Please note that after the password is updated, you need to log in again.',
+  'userSetting.SecuritySettings.modal.cancelText.updatePassword': 'Cancel',
+  'userSetting.SecuritySettings.modal.okText.updatePassword': 'Update',
+  'userSetting.SecuritySettings.form.label.oldPassword': 'Old Password',
+  'userSetting.SecuritySettings.form.label.newPassword': 'New Password',
+  'userSetting.SecuritySettings.form.label.confirmPassword': 'Confirm Password',
+  'userSetting.SecuritySettings.placeholder.oldPassword':
+    'Please enter old password',
+  'userSetting.SecuritySettings.placeholder.newPassword':
+    'Please enter new password',
+  'userSetting.SecuritySettings.placeholder.confirmPassword':
+    'Please confirm new password',
+  'userSetting.SecuritySettings.form.error.passwordLength':
+    'The password length is between 6 and 20 characters',
+  'userSetting.SecuritySettings.form.error.passwordFormat':
+    'The password format is incorrect',
+  'userSetting.SecuritySettings.form.error.passwordUnmatched':
+    'The two passwords do not match',
+
+  // SecuritySettings
+  'userSetting.SecuritySettings.form.label.deleteAccount': 'Delete Account',
+  'userSetting.SecuritySettings.placeholder.deleteAccount':
+    'Please note that after the account is cancelled, the account will be permanently deleted and cannot be recovered.',
+  'userSetting.SecuritySettings.button.deleteAccount': 'Delete',
+
+  // SecuritySettings - delete
+  'userSetting.SecuritySettings.modal.title': 'Delete Account',
+  'userSetting.SecuritySettings.modal.content':
+    'Please note that after the account is cancelled, the account will be permanently deleted and cannot be recovered.',
+  'userSetting.SecuritySettings.modal.cancel': 'Cancel',
+  'userSetting.SecuritySettings.modal.okText': "I'm off",
+  'userSetting.SecuritySettings.modal.cancelText': "I'm kidding",
+
   'menu.user.setting': 'User Setting',
   'userSetting.menu.title.info': 'Personal Information',
   'userSetting.menu.title.account': 'Account Setting',
@@ -19,8 +55,10 @@ export default {
   'userSetting.reset': 'Reset',
   // new
   'userSetting.label.certification': 'Certification',
-  'userSetting.label.phone': 'Phone',
-  'userSetting.label.accountId': 'Account Id',
+  'userSetting.label.userRole': 'Role Type',
+  'userSetting.label.id': 'User Id',
+  'userSetting.label.userName': 'User Name',
+  'userSetting.label.createDate': 'Create Date',
   'userSetting.label.registrationDate': 'Registration Date',
   'userSetting.tab.basicInformation': 'Basic Information',
   'userSetting.tab.securitySettings': 'Security Settings',

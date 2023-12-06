@@ -1,4 +1,30 @@
 export default {
+  // 更新密码
+  'userSetting.SecuritySettings.modal.title.updatePassword': '更新密码',
+  'userSetting.SecuritySettings.modal.content.updatePassword':
+    '请注意，更新密码后，您需要重新登录。',
+  'userSetting.SecuritySettings.updatePasswordCancel': '取消',
+  'userSetting.SecuritySettings.updatePasswordOk': '更新',
+  'userSetting.SecuritySettings.form.label.oldPassword': '旧密码',
+  'userSetting.SecuritySettings.form.label.newPassword': '新密码',
+  'userSetting.SecuritySettings.form.label.checkPassword': '确认密码',
+  'userSetting.SecuritySettings.placeholder.oldPassword': '请输入旧密码',
+  'userSetting.SecuritySettings.placeholder.newPassword': '请输入新密码',
+  'userSetting.SecuritySettings.placeholder.checkPassword': '请再次输入新密码',
+  'userSetting.SecuritySettings.form.error.passwordLength':
+    '密码长度在 6 到 20 个字符',
+  'userSetting.SecuritySettings.form.error.passwordFormat':
+    '密码至少6位字符，支持数字、字母和除空格外的特殊字符，且必须同时包含数字和大小写字母。',
+  'userSetting.SecuritySettings.form.error.passwordUnmatched':
+    '两次输入的密码不一致',
+  // 注销账号
+  'userSetting.SecuritySettings.modal.title': '注销账号',
+  'userSetting.SecuritySettings.modal.content':
+    '请注意，注销账号后，该账号将永久删除且无法恢复。',
+  'userSetting.SecuritySettings.modal.cancel': '取消',
+  'userSetting.SecuritySettings.modal.okText': '去意已决',
+  'userSetting.SecuritySettings.modal.cancelText': '我点错了',
+
   'menu.user.setting': '用户设置',
   'userSetting.menu.title.info': '个人信息',
   'userSetting.menu.title.account': '账号设置',
@@ -9,19 +35,19 @@ export default {
   'userSetting.saveSuccess': '保存成功',
   'userSetting.title.basicInfo': '基本信息',
   'userSetting.title.socialInfo': '社交信息',
-  'userSetting.label.avatar': '头像',
-  'userSetting.label.name': '用户名',
+  'userSetting.label.userAvatar': '头像',
+  'userSetting.label.userName': '用户昵称',
   'userSetting.label.location': '办公地点',
   'userSetting.label.introduction': '个人简介',
   'userSetting.label.personalWebsite': '个人网站',
   'userSetting.save': '保存',
   'userSetting.cancel': '取消',
   'userSetting.reset': '重置',
-  // new
   'userSetting.label.certification': '实名认证',
-  'userSetting.label.phone': '手机号码',
-  'userSetting.label.accountId': '账号ID',
-  'userSetting.label.registrationDate': '注册时间',
+  'userSetting.label.userRole': '角色类型',
+  'userSetting.label.id': '用户 ID',
+  'userSetting.label.userAccount': '用户账号',
+  'userSetting.label.createDate': '创建时间',
   'userSetting.tab.basicInformation': '基础信息',
   'userSetting.tab.securitySettings': '安全设置',
   'userSetting.tab.certification': '实名认证',
@@ -44,13 +70,16 @@ export default {
     '请输入您的个人简介，最多不超过200字。',
   'userSetting.form.error.profile.maxLength': '最多不超过200字',
   'userSetting.SecuritySettings.form.label.password': '登录密码',
+  'userSetting.SecuritySettings.form.label.deleteAccount': '注销账号',
+  'userSetting.SecuritySettings.placeholder.deleteAccount':
+    '请注意，注销账号后，该账号将永久删除且无法恢复。',
+  'userSetting.SecuritySettings.button.deleteAccount': '注销',
   'userSetting.SecuritySettings.placeholder.password':
     '已设置。密码至少6位字符，支持数字、字母和除空格外的特殊字符，且必须同时包含数字和大小写字母。',
   'userSetting.SecuritySettings.form.label.securityQuestion': '密保问题',
   'userSetting.SecuritySettings.placeholder.securityQuestion':
     '您暂未设置密保问题，密保问题可以有效的保护账号的安全。',
   'userSetting.SecuritySettings.form.label.phone': '安全手机',
-  // 'userSetting.SecuritySettings.placeholder.phone': '已绑定：150******50',
   'userSetting.SecuritySettings.form.label.email': '安全邮箱',
   'userSetting.SecuritySettings.placeholder.email':
     '您暂未设置邮箱，绑定邮箱可以用来找回密码、接收通知等。',

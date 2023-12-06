@@ -15,18 +15,31 @@ if (import.meta.env.VITE_API_BASE_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 }
 
+let tokenFlag = false;
+
 axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // let each request carry token
-    // this example using the JWT token
+    // this project(TingYu) using the JWT token
     // Authorization is a custom headers key
-    // please modify it according to the actual situation
     const token = getToken();
     if (token) {
       if (!config.headers) {
         config.headers = {};
       }
       config.headers.Authorization = `Bearer ${token}`;
+      if (!tokenFlag) {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        // access token 有效期不足一分钟或已过期时，重新获取 access token
+        if (payload.exp * 1000 - 1000 * 60 < Date.now()) {
+          tokenFlag = true;
+          const userStore = useUserStore();
+          userStore.auth().then(() => {
+            tokenFlag = false;
+          });
+          // await useUserStore().logout();
+        }
+      }
     }
     return config;
   },
@@ -39,8 +52,8 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data;
-    // if the custom code is not 0, it is judged as an error.
-    if (res.code !== 0) {
+    // if the custom code is not 20000, it is judged as an error.
+    if (res.code !== 20000) {
       Message.error({
         content: res.message || 'Error',
         duration: 5 * 1000,
@@ -57,7 +70,6 @@ axios.interceptors.response.use(
           okText: 'Re-Login',
           async onOk() {
             const userStore = useUserStore();
-
             await userStore.logout();
             window.location.reload();
           },
