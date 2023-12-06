@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>Plan Main</h1>
-  </div>
+  <t-calendar />
 </template>
 
 <script lang="ts" setup></script>
