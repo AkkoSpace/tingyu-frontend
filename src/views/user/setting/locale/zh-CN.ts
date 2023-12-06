@@ -3,14 +3,20 @@ export default {
   'userSetting.SecuritySettings.modal.title.updatePassword': '更新密码',
   'userSetting.SecuritySettings.modal.content.updatePassword':
     '请注意，更新密码后，您需要重新登录。',
-  'userSetting.SecuritySettings.modal.cancelText.updatePassword': '取消',
-  'userSetting.SecuritySettings.modal.okText.updatePassword': '更新',
+  'userSetting.SecuritySettings.updatePasswordCancel': '取消',
+  'userSetting.SecuritySettings.updatePasswordOk': '更新',
   'userSetting.SecuritySettings.form.label.oldPassword': '旧密码',
   'userSetting.SecuritySettings.form.label.newPassword': '新密码',
   'userSetting.SecuritySettings.form.label.checkPassword': '确认密码',
   'userSetting.SecuritySettings.placeholder.oldPassword': '请输入旧密码',
   'userSetting.SecuritySettings.placeholder.newPassword': '请输入新密码',
   'userSetting.SecuritySettings.placeholder.checkPassword': '请再次输入新密码',
+  'userSetting.SecuritySettings.form.error.passwordLength':
+    '密码长度在 6 到 20 个字符',
+  'userSetting.SecuritySettings.form.error.passwordFormat':
+    '密码至少6位字符，支持数字、字母和除空格外的特殊字符，且必须同时包含数字和大小写字母。',
+  'userSetting.SecuritySettings.form.error.passwordUnmatched':
+    '两次输入的密码不一致',
   // 注销账号
   'userSetting.SecuritySettings.modal.title': '注销账号',
   'userSetting.SecuritySettings.modal.content':

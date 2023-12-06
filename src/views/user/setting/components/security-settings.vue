@@ -51,12 +51,7 @@
     :title="$t('userSetting.SecuritySettings.modal.title.updatePassword')"
   >
     <div class="content">
-      <a-form
-        ref="formRef"
-        :model="updatePassword"
-        label-width="120"
-        @submit="handleUpdatePasswordOk"
-      >
+      <a-form ref="formRef" :model="updatePassword" label-width="120">
         <a-form-item
           :label="$t('userSetting.SecuritySettings.form.label.oldPassword')"
           :rules="[
@@ -66,11 +61,14 @@
                 'userSetting.SecuritySettings.placeholder.oldPassword'
               ),
             },
+            {
+              validator: checkPassword,
+            },
           ]"
           field="oldPassword"
         >
           <a-input
-            v-model:value="updatePassword.oldPassword"
+            v-model="updatePassword.oldPassword"
             :placeholder="
               $t('userSetting.SecuritySettings.placeholder.oldPassword')
             "
@@ -86,11 +84,14 @@
                 'userSetting.SecuritySettings.placeholder.newPassword'
               ),
             },
+            {
+              validator: checkPassword,
+            },
           ]"
           field="newPassword"
         >
           <a-input
-            v-model:value="updatePassword.newPassword"
+            v-model="updatePassword.newPassword"
             :placeholder="
               $t('userSetting.SecuritySettings.placeholder.newPassword')
             "
@@ -106,11 +107,14 @@
                 'userSetting.SecuritySettings.placeholder.checkPassword'
               ),
             },
+            {
+              validator: checkPassword && checkCheckPassword,
+            },
           ]"
           field="checkPassword"
         >
           <a-input
-            v-model:value="updatePassword.checkPassword"
+            v-model="updatePassword.checkPassword"
             :placeholder="
               $t('userSetting.SecuritySettings.placeholder.checkPassword')
             "
@@ -118,12 +122,22 @@
           />
         </a-form-item>
         <a-form-item>
-          <a-space>
-            <a-button :loading="loading" html-type="submit" type="primary">
-              {{ $t('userSetting.save') }}
+          <a-space style="display: flex; justify-content: space-between">
+            <a-button
+              shape="round"
+              type="secondary"
+              @click="handleUpdatePasswordCancel"
+            >
+              {{ $t('userSetting.SecuritySettings.updatePasswordCancel') }}
             </a-button>
-            <a-button type="secondary" @click="handleUpdatePasswordCancel">
-              {{ $t('userSetting.reset') }}
+            <a-button
+              :loading="loading"
+              shape="round"
+              style="margin-left: 8px"
+              type="primary"
+              @click="handleUpdatePasswordOk"
+            >
+              {{ $t('userSetting.SecuritySettings.updatePasswordOk') }}
             </a-button>
           </a-space>
         </a-form-item>
@@ -142,7 +156,9 @@
   import { useUserStore } from '@/store';
   import { ref } from 'vue';
   import { FormInstance } from '@arco-design/web-vue/es/form';
-  import { updatePasswordData } from '@/api/user';
+  import useLoading from '@/hooks/loading';
+  import lodash from 'lodash';
+  import { encryptPassword } from '@/utils/auth';
 
   const { t } = useI18n();
 
@@ -150,28 +166,61 @@
   const { userInfo } = userStore;
   const id = userInfo?.id;
 
-  const loading = ref(false);
+  const { loading, setLoading } = useLoading();
   const visible = ref(false);
   const formRef = ref<FormInstance>();
-  const updatePassword = ref<updatePasswordData>({
+  const updatePassword = ref({
     oldPassword: '',
     newPassword: '',
+    checkPassword: '',
   });
 
-  const handleUpdatePasswordCancel = async () => {
-    await formRef.value?.resetFields();
+  const checkPassword = async (value: string, callback: any) => {
+    if (value.length < 6 || value.length > 20) {
+      callback(t('userSetting.SecuritySettings.form.error.passwordLength'));
+    } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+      callback(t('userSetting.SecuritySettings.form.error.passwordFormat'));
+    } else {
+      callback();
+    }
+  };
+
+  const checkCheckPassword = async (value: string, callback: any) => {
+    if (value !== updatePassword.value.newPassword) {
+      callback(t('userSetting.SecuritySettings.form.error.passwordUnmatched'));
+    } else {
+      callback();
+    }
+  };
+
+  const handleUpdatePasswordCancel = () => {
     visible.value = false;
+    formRef.value?.resetFields();
   };
 
   const handleUpdatePasswordOk = async () => {
-    const res = await formRef.value?.validate();
-    console.log('res', res);
-    if (!res) {
-      console.log('!res', res);
+    setLoading(true);
+    try {
+      const res = await formRef.value?.validate();
+      const encryptValues = lodash.cloneDeep(updatePassword.value);
+      encryptValues.oldPassword = encryptPassword(
+        encryptValues.oldPassword
+      ) as string;
+      encryptValues.newPassword = encryptPassword(
+        encryptValues.newPassword
+      ) as string;
+      if (!res) {
+        await userStore.updatePassword({
+          oldPassword: encryptValues.oldPassword,
+          newPassword: encryptValues.newPassword,
+        });
+        window.location.reload();
+      }
+    } catch (err) {
+      // you can report use errorHandler or other
+    } finally {
+      setLoading(false);
     }
-    // await userStore.updatePassword({
-    //   ...updatePassword.value,
-    // });
   };
 
   const handleUpdatePassword = () => {
