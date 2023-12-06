@@ -12,10 +12,10 @@
         <div v-if="userInfo">
           <a-space :size="12">
             <a-avatar :size="24">
-              <img :src="userInfo.avatar" />
+              <img :src="userInfo.userAvatar" />
             </a-avatar>
             <a-typography-text>
-              {{ userInfo.name }} {{ $t('monitor.studioPreview.studio') }}
+              {{ userInfo.userName }} {{ $t('monitor.studioPreview.studio') }}
             </a-typography-text>
           </a-space>
         </div>
