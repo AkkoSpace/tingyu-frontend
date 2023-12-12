@@ -15,7 +15,7 @@ if (import.meta.env.VITE_API_BASE_URL) {
   axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 }
 
-let tokenFlag = false;
+let refreshTokenTimer: any = null; // 添加一个变量用于存储定时器
 
 axios.interceptors.request.use(
   (config: AxiosRequestConfig | any) => {
@@ -28,18 +28,15 @@ axios.interceptors.request.use(
         config.headers = {};
       }
       config.headers.Authorization = `Bearer ${token}`;
-      if (!tokenFlag) {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        // access token 有效期不足一分钟或已过期时，重新获取 access token
-        if (payload.exp * 1000 - 1000 * 60 < Date.now()) {
-          tokenFlag = true;
-          const userStore = useUserStore();
-          userStore.auth().then(() => {
-            tokenFlag = false;
-          });
-          // await useUserStore().logout();
-        }
+      // 检查是否已存在定时器，存在则先清除
+      if (refreshTokenTimer) {
+        clearTimeout(refreshTokenTimer);
       }
+      // 创建新的定时器
+      refreshTokenTimer = setTimeout(async () => {
+        const userStore = useUserStore();
+        await userStore.auth();
+      }, 1000 * 60 * 5); // 定时器间隔为 5 分钟
     }
     return config;
   },
