@@ -13,6 +13,8 @@ import App from './App.vue';
 // https://arco.design/docs/designlab/use-theme-package
 import '@/assets/style/global.less';
 import '@/api/interceptor';
+// 引入 TDesign 组件库的少量全局样式变量
+import 'tdesign-vue-next/es/style/index.css';
 
 const app = createApp(App);
 

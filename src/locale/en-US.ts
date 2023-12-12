@@ -9,6 +9,8 @@ import localeMonitor from '@/views/dashboard/monitor/locale/en-US';
 import localeSearchTable from '@/views/list/search-table/locale/en-US';
 import localeCardList from '@/views/list/card/locale/en-US';
 
+import localeMainPlan from '@/views/plan/main/locale/en-US';
+
 import localeStepForm from '@/views/form/step/locale/en-US';
 import localeGroupForm from '@/views/form/group/locale/en-US';
 
@@ -37,6 +39,7 @@ export default {
   'menu.list': 'List',
   'menu.result': 'Result',
   'menu.exception': 'Exception',
+  'menu.plan': 'Plan',
   'menu.form': 'Form',
   'menu.profile': 'Profile',
   'menu.visualization': 'Data Visualization',
@@ -50,7 +53,7 @@ export default {
   ...localeNavbar,
   ...localeLogin,
   ...localeWorkplace,
-
+  ...localeMainPlan,
   ...localeMonitor,
   ...localeSearchTable,
   ...localeCardList,
